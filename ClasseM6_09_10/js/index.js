@@ -33,18 +33,18 @@ function canviDiners() {
     const diners = [500, 200, 100, 50, 20, 10, 5, 2, 1, 0.5, 0.2, 0.1, 0.05, 0.02, 0.01];
     const canvi = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     
-    console.log("-------------------------------");
+    console.log("--------------------------------------");
     console.log(`preu = ${preu}     calers = ${calers}`);
     
     for(let i = 0; i < diners.length; i++) {
-        let billetsCanvi = canvi - diners[i];
-        if(diners[i] <= preu) {
-            billet = diners[i] - preu;
-
+        // cerca els billets/monedas més cercans al preu
+        if (total >= diners[i]) {
+            canvi[i] = (preu/diners[i]); // calcula quants billets cal retornar de canvi
+            preu = (preu - (canvi[i] * diners[i])).toFixed(2);
         }
-        
-        console.log(`de ${diners[i]}`);
+        if(canvi[i] > 0) {
+            console.log(`${canvi[i]} de ${diners[i]}€`);
+        }
     }
-    console.log(canvi);
     console.log(`Total canvi ${total}`);
 }
