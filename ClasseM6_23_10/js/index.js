@@ -42,12 +42,6 @@ function remplaçaLletra() {
 3- Longitud:  <br>
 4- Nombre de paraules: ... replaceAll('/s')
 5- Les vocals són: 
-
-expressió regular: 
-vocals = /[aàeéèiíïoóòuúü]/gi
-text.match(vocals);
-text.match(vocals).length; 
-
 6- El número de vocals és:
 7- El text reduÏnt: // slice (i, text.length)
     Un text
@@ -64,10 +58,11 @@ function metodesString() {
     document.write("Majúscules: ", text.toUpperCase(), "<br>");
     document.write("Minúscules: ", text.toLowerCase(), "<br>");
     document.write("Longitud: ", text.length, "<br>");
-
+    let paraules = text.split(" ");
+    document.write("Número de paraules: ", paraules.length,"<br>");
     vocals = /[aàeéèiíïoóòuúü]/gi;
     document.write("Les vocals són: ", text.match(vocals), "<br>");
-    document.write("El número de vocals és", text.match(vocals).length , "<br>");
+    document.write("El número de vocals és ", text.match(vocals).length , "<br>");
     document.write("El text reduïnt");
     for(let i = 0; i < text.length; i++) {
         document.write(text.slice(i, text.length), "<br>");
