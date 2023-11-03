@@ -13,7 +13,7 @@ formula porcentatge: n / total * 100;*/
 function dataActual() {
     // Data de avui
     let data = new Date();
-    document.write("<h3>Avui és " + data.getDate() + " del mes " + (data.getMonth()+1) + " de l'any " + data.getFullYear() + "</h3><br>");
+    document.write("Avui és " + data.getDate() + " del mes " + (data.getMonth()+1) + " de l'any " + data.getFullYear() + "<br>");
     
     // Número de setmanas
     let inici = new Date(2023, 0, 1);
@@ -57,16 +57,59 @@ function dataActual() {
  */
 function codiBarres() {
     const codi = prompt("Introdueix el codi de barres ");
-    checkXdigitControl(codi);
+    let numControl = codi.substring(codi.length-1);
+    
+    let max = 0;
+    if (codi.length > 0 && codi.length < 8) {
+        max = 8;
+    } else if (codi.length > 8 && codi.length < 13) {
+        max = 13;
+    } else {
+        document.write("<p><b>Fora de rang</b></p>");
+    }
+    let codigo = addLeftZeroPadding(codi, max);
+    let sumaDigits = checkXdigitControl(codigo);
+    let control = Math.abs(multiploDeu(sumaDigits) - sumaDigits);
+
+    if (parseInt(numControl) == control) {
+        document.write("<p>El codi de barres: <b>" + codigo + "</b> és <b>vàlid</b> </p>");
+    } else {
+        document.write("<p>El codi de barres: <b>" + codigo + "</b> és <b>invàlid</b> </p>");
+    }
 }
 
 function checkXdigitControl(codi) {
     let suma = 0;
-    for(let i = codi.length - 1; i >= 0; i--) {
+    let debug = '';
+    let parinpar = 1;
+        console.log(codi.length);
+    for(let i = codi.length - 2; i >= 0; i--) {
         const num = parseInt(codi[i], 10);
+        if(parinpar % 2 == 0) {
+            suma+=num;
+            //  debug+=num+" * 1 + "
+        } else {
+            suma+=num*3;
+            //  debug+=num+" * 3 + "
+        }
+        parinpar++;    
+    }
+    //console.log(debug);
+    return suma;
+}
 
-        if(digit % 2 == 0) {
+function multiploDeu(num) { 
+    return Math.round(num / 10) * 10;
+}
 
+function addLeftZeroPadding(codi, max) {
+    let codiBarres = codi;
+    if (codi.length === 8 || codi.length === 13) {
+        codiBarres = codi; 
+    } else {
+        for(let i = codi.length; i < max; i++) {
+            codiBarres = '0' + codiBarres;
         }
     }
+    return codiBarres;
 }
